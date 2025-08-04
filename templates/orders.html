@@ -1,0 +1,184 @@
+{% extends "base.html" %}
+
+{% block title %}Case Orders - Delhi High Court{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>
+                <i class="fas fa-file-alt me-2"></i>Case Orders & Judgments
+            </h2>
+            <div>
+                <a href="javascript:history.back()" class="btn btn-outline-secondary me-2">
+                    <i class="fas fa-arrow-left me-1"></i>Back to Results
+                </a>
+                <a href="{{ url_for('index') }}" class="btn btn-outline-primary">
+                    <i class="fas fa-search me-1"></i>New Search
+                </a>
+            </div>
+        </div>
+
+        <!-- Orders Summary -->
+        <div class="alert alert-info">
+            <i class="fas fa-info-circle me-2"></i>
+            <strong>Total Orders Found:</strong> {{ orders_data.total_orders }}
+            <br>
+            <strong>Source:</strong> Delhi High Court Official Website
+        </div>
+
+        {% if orders_data.total_orders > 0 %}
+        <!-- Orders Table -->
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-table me-2"></i>Orders & Judgments
+                </h5>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover mb-0" id="ordersTable">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>S.No.</th>
+                                <th>Case No./Order</th>
+                                <th>Date of Order</th>
+                                <th>Download</th>
+                                <th>Corrigendum</th>
+                                <th>Hindi Order</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for order in orders_data.orders %}
+                            <tr>
+                                <td>{{ order.sno }}</td>
+                                <td>
+                                    <strong>{{ order.order_text }}</strong>
+                                </td>
+                                <td>
+                                    <span class="badge bg-primary">{{ order.order_date }}</span>
+                                </td>
+                                <td>
+                                    {% if order.pdf_link %}
+                                    <a href="{{ order.pdf_link }}" 
+                                       class="btn btn-sm btn-success" 
+                                       target="_blank"
+                                       title="Download PDF directly from Delhi High Court">
+                                        <i class="fas fa-download me-1"></i>PDF
+                                    </a>
+                                    {% else %}
+                                    <span class="text-muted">No PDF</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if order.corrigendum_link %}
+                                    <div>
+                                        <a href="{{ order.corrigendum_link }}" 
+                                           class="btn btn-sm btn-warning" 
+                                           target="_blank"
+                                           title="Download Corrigendum directly from Delhi High Court">
+                                            <i class="fas fa-download me-1"></i>Corr.
+                                        </a>
+                                        {% if order.corrigendum_date %}
+                                        <br><small class="text-muted">{{ order.corrigendum_date }}</small>
+                                        {% endif %}
+                                    </div>
+                                    {% else %}
+                                    <span class="text-muted">-</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if order.hindi_link %}
+                                    <a href="{{ order.hindi_link }}" 
+                                       class="btn btn-sm btn-info" 
+                                       target="_blank"
+                                       title="Download Hindi Order directly from Delhi High Court">
+                                        <i class="fas fa-download me-1"></i>हिंदी
+                                    </a>
+                                    {% else %}
+                                    <span class="text-muted">-</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Download Instructions -->
+        <div class="alert alert-light mt-4">
+            <h6><i class="fas fa-info-circle me-2"></i>Download Instructions:</h6>
+            <ul class="mb-0">
+                <li><strong>PDF:</strong> Main order/judgment document</li>
+                <li><strong>Corr.:</strong> Corrigendum (corrections to original order)</li>
+                <li><strong>हिंदी:</strong> Hindi version of the order</li>
+                <li>Click any download button to download directly from Delhi High Court</li>
+                <li>PDFs will open in a new tab and download automatically</li>
+            </ul>
+        </div>
+
+        {% else %}
+        <!-- No Orders -->
+        <div class="alert alert-warning">
+            <i class="fas fa-exclamation-triangle me-2"></i>
+            <strong>No orders found</strong> for this case.
+            <br><br>
+            <a href="javascript:history.back()" class="btn btn-outline-primary">
+                <i class="fas fa-arrow-left me-1"></i>Go Back
+            </a>
+        </div>
+        {% endif %}
+
+        <!-- Raw Data (for debugging) -->
+        {% if orders_data.get('raw_html') %}
+        <div class="card mt-4">
+            <div class="card-header">
+                <h6 class="mb-0">
+                    <i class="fas fa-code me-2"></i>Raw Data (Debug)
+                    <button class="btn btn-sm btn-outline-secondary float-end" type="button" data-bs-toggle="collapse" data-bs-target="#rawOrdersData">
+                        Toggle
+                    </button>
+                </h6>
+            </div>
+            <div class="collapse" id="rawOrdersData">
+                <div class="card-body">
+                    <pre class="bg-light p-3" style="max-height: 300px; overflow-y: auto;">{{ orders_data.raw_html[:2000] }}{% if orders_data.raw_html|length > 2000 %}...{% endif %}</pre>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+{% block scripts %}
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
+<link href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+
+<!-- DataTables for better table functionality -->
+<script>
+$(document).ready(function() {
+    $('#ordersTable').DataTable({
+        "pageLength": 25,
+        "order": [[ 0, "asc" ]],
+        "columnDefs": [
+            { "orderable": false, "targets": [3, 4, 5] }  // Disable sorting for download columns
+        ],
+        "language": {
+            "search": "Search orders:",
+            "lengthMenu": "Show _MENU_ orders per page",
+            "info": "Showing _START_ to _END_ of _TOTAL_ orders",
+            "paginate": {
+                "first": "First",
+                "last": "Last",
+                "next": "Next",
+                "previous": "Previous"
+            }
+        }
+    });
+});
+</script>
+{% endblock %}
+{% endblock %}

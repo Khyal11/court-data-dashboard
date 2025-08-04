@@ -1,0 +1,175 @@
+{% extends "base.html" %}
+
+{% block title %}Case Details - Court Data Fetcher{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>
+                <i class="fas fa-file-alt me-2"></i>Case Details
+            </h2>
+            <a href="{{ url_for('index') }}" class="btn btn-outline-primary">
+                <i class="fas fa-search me-1"></i>New Search
+            </a>
+        </div>
+
+        <!-- Case Summary -->
+        <div class="case-card">
+            <div class="row">
+                <div class="col-md-6">
+                    <h4 class="text-primary mb-3">
+                        <i class="fas fa-gavel me-2"></i>Case Information
+                    </h4>
+                    <table class="table table-borderless">
+                        <tr>
+                            <td><strong>Case Type:</strong></td>
+                            <td>{{ case_data.get('case_type', 'N/A') }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Case Number:</strong></td>
+                            <td>{{ case_data.get('case_number', 'N/A') }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Filing Year:</strong></td>
+                            <td>{{ case_data.get('filing_year', 'N/A') }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Status:</strong></td>
+                            <td>
+                                <span class="badge bg-info">{{ case_data.get('status', 'Unknown') }}</span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-md-6">
+                    <h4 class="text-primary mb-3">
+                        <i class="fas fa-calendar me-2"></i>Important Dates
+                    </h4>
+                    <table class="table table-borderless">
+                        <tr>
+                            <td><strong>Filing Date:</strong></td>
+                            <td>{{ case_data.get('filing_date', 'Not available') }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Next Hearing:</strong></td>
+                            <td>
+                                {% if case_data.get('next_hearing_date') %}
+                                    <span class="badge bg-warning text-dark">
+                                        {{ case_data.get('next_hearing_date') }}
+                                    </span>
+                                {% else %}
+                                    Not scheduled
+                                {% endif %}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Parties Information -->
+        <div class="case-card">
+            <h4 class="text-primary mb-3">
+                <i class="fas fa-users me-2"></i>Parties Involved
+            </h4>
+            {% if case_data.get('parties') %}
+                <div class="row">
+                    {% for party in case_data.get('parties', []) %}
+                    <div class="col-md-6 mb-3">
+                        <div class="party-info">
+                            <h6 class="text-secondary mb-2">{{ party.get('type', 'Party') }}</h6>
+                            <p class="mb-0"><strong>{{ party.get('name', 'Name not available') }}</strong></p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle me-2"></i>
+                    Party information not available in the scraped data.
+                </div>
+            {% endif %}
+        </div>
+
+        <!-- Orders and Judgments -->
+        <div class="case-card">
+            <h4 class="text-primary mb-3">
+                <i class="fas fa-file-pdf me-2"></i>Orders & Judgments
+            </h4>
+            {% if case_data.get('orders_judgments') %}
+                {% for order in case_data.get('orders_judgments', []) %}
+                <div class="order-item">
+                    <div class="row align-items-center">
+                        <div class="col-md-2">
+                            <small class="text-muted">{{ order.get('date', 'Date N/A') }}</small>
+                        </div>
+                        <div class="col-md-7">
+                            <p class="mb-0">{{ order.get('description', 'No description available') }}</p>
+                        </div>
+                        <div class="col-md-3 text-end">
+                            {% if order.get('pdf_link') %}
+                                <a href="{{ url_for('download_pdf', case_id=case_id, order_index=loop.index0) }}" 
+                                   class="btn btn-sm btn-outline-danger" target="_blank">
+                                    <i class="fas fa-download me-1"></i>Download PDF
+                                </a>
+                            {% else %}
+                                <span class="text-muted">
+                                    <i class="fas fa-times me-1"></i>No PDF
+                                </span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle me-2"></i>
+                    No orders or judgments found in the scraped data.
+                </div>
+            {% endif %}
+        </div>
+
+        <!-- API Access -->
+        <div class="case-card">
+            <h4 class="text-primary mb-3">
+                <i class="fas fa-code me-2"></i>API Access
+            </h4>
+            <p>You can access this case data programmatically using our API:</p>
+            <div class="bg-light p-3 rounded">
+                <code>GET {{ request.url_root }}api/case/{{ case_id }}</code>
+            </div>
+            <div class="mt-2">
+                <a href="{{ url_for('api_case_data', case_id=case_id) }}" 
+                   class="btn btn-sm btn-outline-secondary" target="_blank">
+                    <i class="fas fa-external-link-alt me-1"></i>View JSON
+                </a>
+            </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="text-center mt-4">
+            <a href="{{ url_for('index') }}" class="btn btn-primary me-2">
+                <i class="fas fa-search me-1"></i>Search Another Case
+            </a>
+            <a href="{{ url_for('search_history') }}" class="btn btn-outline-secondary">
+                <i class="fas fa-history me-1"></i>View Search History
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+// Add any JavaScript for case details page
+document.addEventListener('DOMContentLoaded', function() {
+    // Highlight next hearing date if it's soon
+    const nextHearingElements = document.querySelectorAll('.badge.bg-warning');
+    nextHearingElements.forEach(function(element) {
+        const dateText = element.textContent.trim();
+        // Add logic to highlight urgent dates if needed
+    });
+});
+</script>
+{% endblock %}

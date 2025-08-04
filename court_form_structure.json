@@ -1,0 +1,902 @@
+{
+  "url": "https://delhihighcourt.nic.in/app/get-case-type-status",
+  "case_type": {
+    "element_name": "case_type",
+    "element_id": "case_type",
+    "options": [
+      {
+        "value": "ADMIN.REPORT",
+        "text": "ADMIN.REPORT"
+      },
+      {
+        "value": "ARB.A.",
+        "text": "ARB.A."
+      },
+      {
+        "value": "ARB. A. (COMM.)",
+        "text": "ARB. A. (COMM.)"
+      },
+      {
+        "value": "ARB.P.",
+        "text": "ARB.P."
+      },
+      {
+        "value": "BAIL APPLN.",
+        "text": "BAIL APPLN."
+      },
+      {
+        "value": "CA",
+        "text": "CA"
+      },
+      {
+        "value": "CA (COMM.IPD-CR)",
+        "text": "CA (COMM.IPD-CR)"
+      },
+      {
+        "value": "C.A.(COMM.IPD-GI)",
+        "text": "C.A.(COMM.IPD-GI)"
+      },
+      {
+        "value": "C.A.(COMM.IPD-PAT)",
+        "text": "C.A.(COMM.IPD-PAT)"
+      },
+      {
+        "value": "C.A.(COMM.IPD-PV)",
+        "text": "C.A.(COMM.IPD-PV)"
+      },
+      {
+        "value": "C.A.(COMM.IPD-TM)",
+        "text": "C.A.(COMM.IPD-TM)"
+      },
+      {
+        "value": "CAVEAT(CO.)",
+        "text": "CAVEAT(CO.)"
+      },
+      {
+        "value": "CC(ARB.)",
+        "text": "CC(ARB.)"
+      },
+      {
+        "value": "CCP(CO.)",
+        "text": "CCP(CO.)"
+      },
+      {
+        "value": "CCP(REF)",
+        "text": "CCP(REF)"
+      },
+      {
+        "value": "CEAC",
+        "text": "CEAC"
+      },
+      {
+        "value": "CEAR",
+        "text": "CEAR"
+      },
+      {
+        "value": "CHAT.A.C.",
+        "text": "CHAT.A.C."
+      },
+      {
+        "value": "CHAT.A.REF",
+        "text": "CHAT.A.REF"
+      },
+      {
+        "value": "CMI",
+        "text": "CMI"
+      },
+      {
+        "value": "CM(M)",
+        "text": "CM(M)"
+      },
+      {
+        "value": "CM(M)-IPD",
+        "text": "CM(M)-IPD"
+      },
+      {
+        "value": "C.O.",
+        "text": "C.O."
+      },
+      {
+        "value": "CO.APP.",
+        "text": "CO.APP."
+      },
+      {
+        "value": "CO.APPL.(C)",
+        "text": "CO.APPL.(C)"
+      },
+      {
+        "value": "CO.APPL.(M)",
+        "text": "CO.APPL.(M)"
+      },
+      {
+        "value": "CO.A(SB)",
+        "text": "CO.A(SB)"
+      },
+      {
+        "value": "C.O.(COMM.IPD-CR)",
+        "text": "C.O.(COMM.IPD-CR)"
+      },
+      {
+        "value": "C.O.(COMM.IPD-GI)",
+        "text": "C.O.(COMM.IPD-GI)"
+      },
+      {
+        "value": "C.O.(COMM.IPD-PAT)",
+        "text": "C.O.(COMM.IPD-PAT)"
+      },
+      {
+        "value": "C.O. (COMM.IPD-TM)",
+        "text": "C.O. (COMM.IPD-TM)"
+      },
+      {
+        "value": "CO.EX.",
+        "text": "CO.EX."
+      },
+      {
+        "value": "CONT.APP.(C)",
+        "text": "CONT.APP.(C)"
+      },
+      {
+        "value": "CONT.CAS(C)",
+        "text": "CONT.CAS(C)"
+      },
+      {
+        "value": "CONT.CAS.(CRL)",
+        "text": "CONT.CAS.(CRL)"
+      },
+      {
+        "value": "CO.PET.",
+        "text": "CO.PET."
+      },
+      {
+        "value": "C.REF.(O)",
+        "text": "C.REF.(O)"
+      },
+      {
+        "value": "CRL.A.",
+        "text": "CRL.A."
+      },
+      {
+        "value": "CRL.L.P.",
+        "text": "CRL.L.P."
+      },
+      {
+        "value": "CRL.M.C.",
+        "text": "CRL.M.C."
+      },
+      {
+        "value": "CRL.M.(CO.)",
+        "text": "CRL.M.(CO.)"
+      },
+      {
+        "value": "CRL.M.I.",
+        "text": "CRL.M.I."
+      },
+      {
+        "value": "CRL.O.",
+        "text": "CRL.O."
+      },
+      {
+        "value": "CRL.O.(CO.)",
+        "text": "CRL.O.(CO.)"
+      },
+      {
+        "value": "CRL.REF.",
+        "text": "CRL.REF."
+      },
+      {
+        "value": "CRL.REV.P.",
+        "text": "CRL.REV.P."
+      },
+      {
+        "value": "CRL.REV.P.(MAT.)",
+        "text": "CRL.REV.P.(MAT.)"
+      },
+      {
+        "value": "CRL.REV.P.(NDPS)",
+        "text": "CRL.REV.P.(NDPS)"
+      },
+      {
+        "value": "CRL.REV.P.(NI)",
+        "text": "CRL.REV.P.(NI)"
+      },
+      {
+        "value": "C.R.P.",
+        "text": "C.R.P."
+      },
+      {
+        "value": "CRP-IPD",
+        "text": "CRP-IPD"
+      },
+      {
+        "value": "C.RULE",
+        "text": "C.RULE"
+      },
+      {
+        "value": "CS(COMM)",
+        "text": "CS(COMM)"
+      },
+      {
+        "value": "CS(OS)",
+        "text": "CS(OS)"
+      },
+      {
+        "value": "CS(OS) GP",
+        "text": "CS(OS) GP"
+      },
+      {
+        "value": "CUSAA",
+        "text": "CUSAA"
+      },
+      {
+        "value": "CUS.A.C.",
+        "text": "CUS.A.C."
+      },
+      {
+        "value": "CUS.A.R.",
+        "text": "CUS.A.R."
+      },
+      {
+        "value": "CUSTOM A.",
+        "text": "CUSTOM A."
+      },
+      {
+        "value": "DEATH SENTENCE REF.",
+        "text": "DEATH SENTENCE REF."
+      },
+      {
+        "value": "DEMO",
+        "text": "DEMO"
+      },
+      {
+        "value": "EDC",
+        "text": "EDC"
+      },
+      {
+        "value": "EDR",
+        "text": "EDR"
+      },
+      {
+        "value": "EFA(COMM)",
+        "text": "EFA(COMM)"
+      },
+      {
+        "value": "EFA(OS)",
+        "text": "EFA(OS)"
+      },
+      {
+        "value": "EFA(OS)  (COMM)",
+        "text": "EFA(OS) (COMM)"
+      },
+      {
+        "value": "EFA(OS)(IPD)",
+        "text": "EFA(OS)(IPD)"
+      },
+      {
+        "value": "EL.PET.",
+        "text": "EL.PET."
+      },
+      {
+        "value": "ETR",
+        "text": "ETR"
+      },
+      {
+        "value": "EX.F.A.",
+        "text": "EX.F.A."
+      },
+      {
+        "value": "EX.P.",
+        "text": "EX.P."
+      },
+      {
+        "value": "EX.S.A.",
+        "text": "EX.S.A."
+      },
+      {
+        "value": "FAO",
+        "text": "FAO"
+      },
+      {
+        "value": "FAO (COMM)",
+        "text": "FAO (COMM)"
+      },
+      {
+        "value": "FAO-IPD",
+        "text": "FAO-IPD"
+      },
+      {
+        "value": "FAO(OS)",
+        "text": "FAO(OS)"
+      },
+      {
+        "value": "FAO(OS) (COMM)",
+        "text": "FAO(OS) (COMM)"
+      },
+      {
+        "value": "FAO(OS)(IPD)",
+        "text": "FAO(OS)(IPD)"
+      },
+      {
+        "value": "GCAC",
+        "text": "GCAC"
+      },
+      {
+        "value": "GCAR",
+        "text": "GCAR"
+      },
+      {
+        "value": "GTA",
+        "text": "GTA"
+      },
+      {
+        "value": "GTC",
+        "text": "GTC"
+      },
+      {
+        "value": "GTR",
+        "text": "GTR"
+      },
+      {
+        "value": "I.A.",
+        "text": "I.A."
+      },
+      {
+        "value": "I.P.A.",
+        "text": "I.P.A."
+      },
+      {
+        "value": "ITA",
+        "text": "ITA"
+      },
+      {
+        "value": "ITC",
+        "text": "ITC"
+      },
+      {
+        "value": "ITR",
+        "text": "ITR"
+      },
+      {
+        "value": "ITSA",
+        "text": "ITSA"
+      },
+      {
+        "value": "LA.APP.",
+        "text": "LA.APP."
+      },
+      {
+        "value": "LPA",
+        "text": "LPA"
+      },
+      {
+        "value": "MAC.APP.",
+        "text": "MAC.APP."
+      },
+      {
+        "value": "MAT.",
+        "text": "MAT."
+      },
+      {
+        "value": "MAT.APP.",
+        "text": "MAT.APP."
+      },
+      {
+        "value": "MAT.APP.(F.C.)",
+        "text": "MAT.APP.(F.C.)"
+      },
+      {
+        "value": "MAT.CASE",
+        "text": "MAT.CASE"
+      },
+      {
+        "value": "MAT.REF.",
+        "text": "MAT.REF."
+      },
+      {
+        "value": "MISC. APPEAL(PMLA)",
+        "text": "MISC. APPEAL(PMLA)"
+      },
+      {
+        "value": "OA",
+        "text": "OA"
+      },
+      {
+        "value": "OCJA",
+        "text": "OCJA"
+      },
+      {
+        "value": "O.M.P.",
+        "text": "O.M.P."
+      },
+      {
+        "value": "O.M.P. (COMM)",
+        "text": "O.M.P. (COMM)"
+      },
+      {
+        "value": "OMP (CONT.)",
+        "text": "OMP (CONT.)"
+      },
+      {
+        "value": "O.M.P. (E)",
+        "text": "O.M.P. (E)"
+      },
+      {
+        "value": "O.M.P. (E) (COMM.)",
+        "text": "O.M.P. (E) (COMM.)"
+      },
+      {
+        "value": "O.M.P.(EFA)(COMM.)",
+        "text": "O.M.P.(EFA)(COMM.)"
+      },
+      {
+        "value": "OMP (ENF.) (COMM.)",
+        "text": "OMP (ENF.) (COMM.)"
+      },
+      {
+        "value": "O.M.P.(I)",
+        "text": "O.M.P.(I)"
+      },
+      {
+        "value": "O.M.P.(I) (COMM.)",
+        "text": "O.M.P.(I) (COMM.)"
+      },
+      {
+        "value": "O.M.P. (J) (COMM.)",
+        "text": "O.M.P. (J) (COMM.)"
+      },
+      {
+        "value": "O.M.P. (MISC.)",
+        "text": "O.M.P. (MISC.)"
+      },
+      {
+        "value": "O.M.P.(MISC.)(COMM.)",
+        "text": "O.M.P.(MISC.)(COMM.)"
+      },
+      {
+        "value": "O.M.P.(T)",
+        "text": "O.M.P.(T)"
+      },
+      {
+        "value": "O.M.P. (T) (COMM.)",
+        "text": "O.M.P. (T) (COMM.)"
+      },
+      {
+        "value": "O.REF.",
+        "text": "O.REF."
+      },
+      {
+        "value": "RC.REV.",
+        "text": "RC.REV."
+      },
+      {
+        "value": "RC.S.A.",
+        "text": "RC.S.A."
+      },
+      {
+        "value": "RERA APPEAL",
+        "text": "RERA APPEAL"
+      },
+      {
+        "value": "REVIEW PET.",
+        "text": "REVIEW PET."
+      },
+      {
+        "value": "RFA",
+        "text": "RFA"
+      },
+      {
+        "value": "RFA(COMM)",
+        "text": "RFA(COMM)"
+      },
+      {
+        "value": "RFA-IPD",
+        "text": "RFA-IPD"
+      },
+      {
+        "value": "RFA(OS)",
+        "text": "RFA(OS)"
+      },
+      {
+        "value": "RFA(OS)(COMM)",
+        "text": "RFA(OS)(COMM)"
+      },
+      {
+        "value": "RF(OS)(IPD)",
+        "text": "RF(OS)(IPD)"
+      },
+      {
+        "value": "RSA",
+        "text": "RSA"
+      },
+      {
+        "value": "SCA",
+        "text": "SCA"
+      },
+      {
+        "value": "SDR",
+        "text": "SDR"
+      },
+      {
+        "value": "SERTA",
+        "text": "SERTA"
+      },
+      {
+        "value": "ST.APPL.",
+        "text": "ST.APPL."
+      },
+      {
+        "value": "STC",
+        "text": "STC"
+      },
+      {
+        "value": "ST.REF.",
+        "text": "ST.REF."
+      },
+      {
+        "value": "SUR.T.REF.",
+        "text": "SUR.T.REF."
+      },
+      {
+        "value": "TEST.CAS.",
+        "text": "TEST.CAS."
+      },
+      {
+        "value": "TR.P.(C)",
+        "text": "TR.P.(C)"
+      },
+      {
+        "value": "TR.P.(C.)",
+        "text": "TR.P.(C.)"
+      },
+      {
+        "value": "TR.P.(CRL.)",
+        "text": "TR.P.(CRL.)"
+      },
+      {
+        "value": "VAT APPEAL",
+        "text": "VAT APPEAL"
+      },
+      {
+        "value": "W.P.(C)",
+        "text": "W.P.(C)"
+      },
+      {
+        "value": "W.P.(C)-IPD",
+        "text": "W.P.(C)-IPD"
+      },
+      {
+        "value": "WP(C)(IPD)",
+        "text": "WP(C)(IPD)"
+      },
+      {
+        "value": "W.P.(CRL)",
+        "text": "W.P.(CRL)"
+      },
+      {
+        "value": "WTA",
+        "text": "WTA"
+      },
+      {
+        "value": "WTC",
+        "text": "WTC"
+      },
+      {
+        "value": "WTR",
+        "text": "WTR"
+      }
+    ]
+  },
+  "case_number": {
+    "element_name": "case_number",
+    "element_id": "case_number",
+    "placeholder": "Case Number :"
+  },
+  "year": {
+    "element_name": "case_year",
+    "element_id": "case_year",
+    "options": [
+      {
+        "value": "2025",
+        "text": "2025"
+      },
+      {
+        "value": "2024",
+        "text": "2024"
+      },
+      {
+        "value": "2023",
+        "text": "2023"
+      },
+      {
+        "value": "2022",
+        "text": "2022"
+      },
+      {
+        "value": "2021",
+        "text": "2021"
+      },
+      {
+        "value": "2020",
+        "text": "2020"
+      },
+      {
+        "value": "2019",
+        "text": "2019"
+      },
+      {
+        "value": "2018",
+        "text": "2018"
+      },
+      {
+        "value": "2017",
+        "text": "2017"
+      },
+      {
+        "value": "2016",
+        "text": "2016"
+      },
+      {
+        "value": "2015",
+        "text": "2015"
+      },
+      {
+        "value": "2014",
+        "text": "2014"
+      },
+      {
+        "value": "2013",
+        "text": "2013"
+      },
+      {
+        "value": "2012",
+        "text": "2012"
+      },
+      {
+        "value": "2011",
+        "text": "2011"
+      },
+      {
+        "value": "2010",
+        "text": "2010"
+      },
+      {
+        "value": "2009",
+        "text": "2009"
+      },
+      {
+        "value": "2008",
+        "text": "2008"
+      },
+      {
+        "value": "2007",
+        "text": "2007"
+      },
+      {
+        "value": "2006",
+        "text": "2006"
+      },
+      {
+        "value": "2005",
+        "text": "2005"
+      },
+      {
+        "value": "2004",
+        "text": "2004"
+      },
+      {
+        "value": "2003",
+        "text": "2003"
+      },
+      {
+        "value": "2002",
+        "text": "2002"
+      },
+      {
+        "value": "2001",
+        "text": "2001"
+      },
+      {
+        "value": "2000",
+        "text": "2000"
+      },
+      {
+        "value": "1999",
+        "text": "1999"
+      },
+      {
+        "value": "1998",
+        "text": "1998"
+      },
+      {
+        "value": "1997",
+        "text": "1997"
+      },
+      {
+        "value": "1996",
+        "text": "1996"
+      },
+      {
+        "value": "1995",
+        "text": "1995"
+      },
+      {
+        "value": "1994",
+        "text": "1994"
+      },
+      {
+        "value": "1993",
+        "text": "1993"
+      },
+      {
+        "value": "1992",
+        "text": "1992"
+      },
+      {
+        "value": "1991",
+        "text": "1991"
+      },
+      {
+        "value": "1990",
+        "text": "1990"
+      },
+      {
+        "value": "1989",
+        "text": "1989"
+      },
+      {
+        "value": "1988",
+        "text": "1988"
+      },
+      {
+        "value": "1987",
+        "text": "1987"
+      },
+      {
+        "value": "1986",
+        "text": "1986"
+      },
+      {
+        "value": "1985",
+        "text": "1985"
+      },
+      {
+        "value": "1984",
+        "text": "1984"
+      },
+      {
+        "value": "1983",
+        "text": "1983"
+      },
+      {
+        "value": "1982",
+        "text": "1982"
+      },
+      {
+        "value": "1981",
+        "text": "1981"
+      },
+      {
+        "value": "1980",
+        "text": "1980"
+      },
+      {
+        "value": "1979",
+        "text": "1979"
+      },
+      {
+        "value": "1978",
+        "text": "1978"
+      },
+      {
+        "value": "1977",
+        "text": "1977"
+      },
+      {
+        "value": "1976",
+        "text": "1976"
+      },
+      {
+        "value": "1975",
+        "text": "1975"
+      },
+      {
+        "value": "1974",
+        "text": "1974"
+      },
+      {
+        "value": "1973",
+        "text": "1973"
+      },
+      {
+        "value": "1972",
+        "text": "1972"
+      },
+      {
+        "value": "1971",
+        "text": "1971"
+      },
+      {
+        "value": "1970",
+        "text": "1970"
+      },
+      {
+        "value": "1969",
+        "text": "1969"
+      },
+      {
+        "value": "1968",
+        "text": "1968"
+      },
+      {
+        "value": "1967",
+        "text": "1967"
+      },
+      {
+        "value": "1966",
+        "text": "1966"
+      },
+      {
+        "value": "1965",
+        "text": "1965"
+      },
+      {
+        "value": "1964",
+        "text": "1964"
+      },
+      {
+        "value": "1963",
+        "text": "1963"
+      },
+      {
+        "value": "1962",
+        "text": "1962"
+      },
+      {
+        "value": "1961",
+        "text": "1961"
+      },
+      {
+        "value": "1960",
+        "text": "1960"
+      },
+      {
+        "value": "1959",
+        "text": "1959"
+      },
+      {
+        "value": "1958",
+        "text": "1958"
+      },
+      {
+        "value": "1957",
+        "text": "1957"
+      },
+      {
+        "value": "1956",
+        "text": "1956"
+      },
+      {
+        "value": "1955",
+        "text": "1955"
+      },
+      {
+        "value": "1954",
+        "text": "1954"
+      },
+      {
+        "value": "1953",
+        "text": "1953"
+      },
+      {
+        "value": "1952",
+        "text": "1952"
+      },
+      {
+        "value": "1951",
+        "text": "1951"
+      }
+    ]
+  },
+  "captcha": {},
+  "submit": {}
+}

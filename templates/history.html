@@ -1,0 +1,173 @@
+{% extends "base.html" %}
+
+{% block title %}Search History - Court Data Fetcher{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>
+                <i class="fas fa-history me-2"></i>Search History
+            </h2>
+            <a href="{{ url_for('index') }}" class="btn btn-primary">
+                <i class="fas fa-search me-1"></i>New Search
+            </a>
+        </div>
+
+        {% if queries %}
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Recent Searches (Last 50)</h5>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Date & Time</th>
+                                    <th>Case Type</th>
+                                    <th>Case Number</th>
+                                    <th>Filing Year</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for query in queries %}
+                                <tr>
+                                    <td>
+                                        <small>
+                                            {{ query.timestamp.strftime('%d/%m/%Y %H:%M') }}
+                                        </small>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-secondary">{{ query.case_type }}</span>
+                                    </td>
+                                    <td><strong>{{ query.case_number }}</strong></td>
+                                    <td>{{ query.filing_year }}</td>
+                                    <td>
+                                        {% if query.case_data %}
+                                            <span class="badge bg-success">
+                                                <i class="fas fa-check me-1"></i>Found
+                                            </span>
+                                        {% else %}
+                                            <span class="badge bg-warning">
+                                                <i class="fas fa-exclamation me-1"></i>Not Found
+                                            </span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if query.case_data %}
+                                            {% for case in query.case_data %}
+                                                <a href="{{ url_for('api_case_data', case_id=case.id) }}" 
+                                                   class="btn btn-sm btn-outline-primary me-1" target="_blank">
+                                                    <i class="fas fa-eye me-1"></i>View
+                                                </a>
+                                            {% endfor %}
+                                        {% endif %}
+                                        <button class="btn btn-sm btn-outline-secondary" 
+                                                onclick="repeatSearch('{{ query.case_type }}', '{{ query.case_number }}', '{{ query.filing_year }}')">
+                                            <i class="fas fa-redo me-1"></i>Repeat
+                                        </button>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Statistics -->
+            <div class="row mt-4">
+                <div class="col-md-4">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h3 class="text-primary">{{ queries|length }}</h3>
+                            <p class="mb-0">Total Searches</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h3 class="text-success">
+                                {{ queries|selectattr('case_data')|list|length }}
+                            </h3>
+                            <p class="mb-0">Successful Searches</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h3 class="text-info">
+                                {% set case_types = queries|map(attribute='case_type')|unique|list %}
+                                {{ case_types|length }}
+                            </h3>
+                            <p class="mb-0">Unique Case Types</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        {% else %}
+            <div class="text-center py-5">
+                <i class="fas fa-search fa-3x text-muted mb-3"></i>
+                <h4 class="text-muted">No Search History</h4>
+                <p class="text-muted">You haven't performed any case searches yet.</p>
+                <a href="{{ url_for('index') }}" class="btn btn-primary">
+                    <i class="fas fa-search me-1"></i>Start Searching
+                </a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Repeat Search Modal -->
+<div class="modal fade" id="repeatSearchModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Repeat Search</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form method="POST" action="{{ url_for('search_case') }}">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="repeat_case_type" class="form-label">Case Type</label>
+                        <input type="text" class="form-control" id="repeat_case_type" name="case_type" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label for="repeat_case_number" class="form-label">Case Number</label>
+                        <input type="text" class="form-control" id="repeat_case_number" name="case_number" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label for="repeat_filing_year" class="form-label">Filing Year</label>
+                        <input type="text" class="form-control" id="repeat_filing_year" name="filing_year" readonly>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-search me-1"></i>Search Again
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+function repeatSearch(caseType, caseNumber, filingYear) {
+    document.getElementById('repeat_case_type').value = caseType;
+    document.getElementById('repeat_case_number').value = caseNumber;
+    document.getElementById('repeat_filing_year').value = filingYear;
+    
+    const modal = new bootstrap.Modal(document.getElementById('repeatSearchModal'));
+    modal.show();
+}
+</script>
+{% endblock %}

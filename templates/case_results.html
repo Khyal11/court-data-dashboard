@@ -1,0 +1,194 @@
+{% extends "base.html" %}
+
+{% block title %}Case Search Results - Delhi High Court{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>
+                <i class="fas fa-list me-2"></i>Case Search Results
+            </h2>
+            <a href="{{ url_for('index') }}" class="btn btn-outline-primary">
+                <i class="fas fa-search me-1"></i>New Search
+            </a>
+        </div>
+
+        <!-- Search Summary -->
+        <div class="alert alert-info">
+            <i class="fas fa-info-circle me-2"></i>
+            <strong>Search Query:</strong> {{ search_query.case_type }} {{ search_query.case_number }}/{{ search_query.filing_year }}
+            <br>
+            <strong>Results Found:</strong> {{ case_data.total_cases }} case(s)
+            <br>
+            <strong>Source:</strong> Delhi High Court Official Website
+        </div>
+
+        {% if case_data.total_cases > 0 %}
+        <!-- Results Table -->
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-table me-2"></i>Case Details
+                </h5>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover mb-0">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>S.No.</th>
+                                <th>Diary No. / Case No. [STATUS]</th>
+                                <th>Petitioner Vs. Respondent</th>
+                                <th>Listing Date / Court No.</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for case in case_data.cases %}
+                            <tr>
+                                <td>{{ case.sno }}</td>
+                                <td>
+                                    <div class="case-number">
+                                        <strong>{{ case.case_number }}</strong>
+                                        <br>
+                                        <span class="badge 
+                                            {% if case.status == 'DISPOSED' %}bg-success
+                                            {% elif case.status == 'PENDING' %}bg-warning
+                                            {% elif case.status == 'PART HEARD' %}bg-info
+                                            {% else %}bg-secondary
+                                            {% endif %}">
+                                            {{ case.status }}
+                                        </span>
+                                        {% if case.pdf_links %}
+                                        <br>
+                                        <small class="text-muted">
+                                            <i class="fas fa-file-pdf text-danger"></i> Orders Available
+                                        </small>
+                                        {% endif %}
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="parties">
+                                        {{ case.parties }}
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="dates-court">
+                                        {% if case.next_date != 'N/A' %}
+                                        <div class="mb-1">
+                                            <strong>NEXT DATE:</strong> {{ case.next_date }}
+                                        </div>
+                                        {% endif %}
+                                        {% if case.last_date != 'N/A' %}
+                                        <div class="mb-1">
+                                            <strong>Last Date:</strong> {{ case.last_date }}
+                                        </div>
+                                        {% endif %}
+                                        {% if case.court_no != 'N/A' %}
+                                        <div>
+                                            <strong>COURT NO:</strong> {{ case.court_no }}
+                                        </div>
+                                        {% endif %}
+                                    </div>
+                                </td>
+                                <td>
+                                    {% if case.pdf_links %}
+                                    <div class="btn-group-vertical" role="group">
+                                        {% for pdf in case.pdf_links %}
+                                        <a href="{{ url_for('view_orders', orders_url=pdf.url|urlencode) }}" 
+                                           class="btn btn-sm btn-outline-danger mb-1 orders-btn"
+                                           onclick="showOrdersLoading()">
+                                            <i class="fas fa-file-pdf me-1"></i>{{ pdf.text or 'View Orders' }}
+                                        </a>
+                                        {% endfor %}
+                                    </div>
+                                    {% else %}
+                                    <span class="text-muted">No PDFs</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Raw Data (for debugging) -->
+        {% if case_data.get('raw_html') %}
+        <div class="card mt-4">
+            <div class="card-header">
+                <h6 class="mb-0">
+                    <i class="fas fa-code me-2"></i>Raw Data (Debug)
+                    <button class="btn btn-sm btn-outline-secondary float-end" type="button" data-bs-toggle="collapse" data-bs-target="#rawData">
+                        Toggle
+                    </button>
+                </h6>
+            </div>
+            <div class="collapse" id="rawData">
+                <div class="card-body">
+                    <pre class="bg-light p-3" style="max-height: 300px; overflow-y: auto;">{{ case_data.raw_html[:2000] }}{% if case_data.raw_html|length > 2000 %}...{% endif %}</pre>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        {% else %}
+        <!-- No Results -->
+        <div class="alert alert-warning">
+            <i class="fas fa-exclamation-triangle me-2"></i>
+            <strong>No cases found</strong> for the search criteria.
+            <br><br>
+            <strong>Possible reasons:</strong>
+            <ul class="mb-0">
+                <li>Case number doesn't exist</li>
+                <li>Wrong case type selected</li>
+                <li>Incorrect filing year</li>
+                <li>Case might be in a different court</li>
+            </ul>
+        </div>
+
+        <div class="card mt-3">
+            <div class="card-header">
+                <h6 class="mb-0">
+                    <i class="fas fa-lightbulb me-2"></i>Search Tips
+                </h6>
+            </div>
+            <div class="card-body">
+                <ul class="mb-0">
+                    <li><strong>Case Number:</strong> Enter only the numeric part (e.g., 1, 123, 5678)</li>
+                    <li><strong>Case Type:</strong> Select the exact case type from dropdown</li>
+                    <li><strong>Filing Year:</strong> Use the year when case was originally filed</li>
+                    <li><strong>Try variations:</strong> Some cases might have different numbering</li>
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<style>
+.case-number {
+    font-family: 'Courier New', monospace;
+}
+
+.parties {
+    font-size: 0.9em;
+    line-height: 1.3;
+}
+
+.dates-court {
+    font-size: 0.85em;
+    line-height: 1.4;
+}
+
+.table td {
+    vertical-align: middle;
+}
+
+.btn-group-vertical .btn {
+    font-size: 0.8em;
+}
+</style>
+{% endblock %}
